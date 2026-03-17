@@ -2,6 +2,22 @@
 
 React Native ve Expo kullanılarak geliştirilmiş, yazılımcıların uzmanlık alanlarını ve anlık müsaitlik durumlarını yöneten modern bir arayüz çalışmasıdır.
 
+## AI Prompt
+**Girilen Prompt:**
+```text
+Bir mobil uygulama geliştiriyorum olayı da şu:
+Yazılımcı Kimlik Kartı 🪪: ad, uzmanlik ve seviye proplarını gösteren, "İşe Al" butonuna basıldığında musaitMi state'ini false yapıp buton metnini "Projelerde Çalışıyor" olarak değiştiren bir profil kartı.
+Senior bir yazılımcı olarak davran.
+Bu kodu Flexbox kullanarak ortala ve modern bir arayüz tasarımı (StyleSheet) ekle.
+Duruma göre değişen dinamik emojiler veya arka plan renkleri ekle.
+Yazdığım bu kodu 'Clean Code' prensiplerine göre refactor et ve bana neleri iyileştirdiğini açıkla.
+Bu dediklerimi uygula ayrıca uygulamayı çalışır hale getir.
+Bu uygulamayı tam bir mobil uygulama kalitesinde profesyonelleştir.
+```
+**Öğrendiklerim:**
+* TouchableOpacity özelliği ile butonların görünürlüğü ayarlanabiliyor.
+* Bir çok style özelliği gördüm.
+
 ## 🚀 Özellikler
 * **Dinamik Durum Yönetimi:** "İşe Al" butonu ile yazılımcının durumunu anlık olarak değiştirme.
 * **Modern UI:** Flexbox tabanlı, karanlık mod uyumlu ve temiz tasarım.
