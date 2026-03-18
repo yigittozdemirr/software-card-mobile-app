@@ -1,50 +1,58 @@
-# 🪪 Yazılımcı Kadrosu (Developer Cards)
+# 👨‍💻 IT Yönetmeni Tycoon (IT Manager Simulator)
 
-React Native ve Expo kullanılarak geliştirilmiş, yazılımcıların uzmanlık alanlarını ve anlık müsaitlik durumlarını yöneten modern bir arayüz çalışmasıdır.
+Bu proje, React Native ve Expo kullanılarak geliştirilmiş eğlenceli bir ofis yönetimi (tycoon) oyunudur. Kullanıcılar sıfırdan bir ofis kurar, farklı uzmanlıklardaki geliştiricileri işe alır, onları eğiterek seviyelerini yükseltir ve şirketin saniyelik gelirini artırarak en iyi yazılım ajansı olmaya çalışır. AI destekli geliştirme (Vibe Coding) süreçleriyle kodlanmıştır.
 
-## 🚀 Özellikler
-* **Dinamik Durum Yönetimi:** "İşe Al" butonu ile yazılımcının durumunu anlık olarak değiştirme.
-* **Modern UI:** Flexbox tabanlı, karanlık mod uyumlu ve temiz tasarım.
-* **Görsel Geri Bildirim:** Müsaitlik durumuna göre değişen renkler ve emojiler.
-* **Clean Code:** Bileşen tabanlı mimari ve merkezi tema yönetimi.
+## ✨ Özellikler
 
-## 🛠️ Kullanılan Teknolojiler
-* **Framework:** React Native (Expo)
-* **Dil:** JavaScript
-* **Styling:** StyleSheet (Native)
-* **Animasyon:** React Native Animated API
+* **Dinamik Ekonomi Sistemi:** İşe alma maliyetleri, eğitim ücretleri ve saniyede kazanılan (+$X/sn) gerçek zamanlı pasif gelir yönetimi.
+* **Seviye Sistemi (Leveling):** Geliştiricileri eğiterek Lv.1'den maksimum seviyeye (MAX) çıkarma. Her seviye artışı geliri ve karakterin görsel temasını günceller.
+* **Kilit Açma Mekaniği (Progression):** Kademeli zorluk sistemi. Önceki geliştirici Lv.3'e ulaşmadan bir sonraki yetenekli personelin (🔒) kilidi açılamaz.
+* **Modern ve İnteraktif UI:** Çalışma durumunda devreye giren nabız (pulse) animasyonları, buton basım efektleri ve haptik (titreşim) geri bildirimler.
 
-## 📦 Kurulum ve Çalıştırma
+## 🚀 Başlangıç
 
-Projeyi yerel makinenizde çalıştırmak için:
+Projeyi yerel makinenizde çalıştırmak için şu adımları izleyin:
 
-## Depoyu klonlayın:
+## 1. Bu depoyu klonlayın:
+   ```bash
+   git clone [https://github.com/yigittozdemirr/repo-adin.git](https://github.com/yigittozdemirr/repo-adin.git)
+  ```
 
-```bash
-git clone [https://github.com/yigittozdemirr/repo-adin.git](https://github.com/yigittozdemirr/repo-adin.git)
-```
-
-## Proje dizinine gidin:
+## 2. Proje dizinine gidin:
 
 ```bash
 cd repo-adin
 ```
 
-## Bağımlılıkları yükleyin:
+## 3. Bağımlılıkları yükleyin:
 
 ```bash
 npm install
 ```
 
-## Uygulamayı başlatın:
+## 4. Uygulamayı başlatın:
 
 ```bash
 npx expo start
 ```
 
-## 📸 Ekran Görüntüsü
+## 🛠️ Kullanılan Teknolojiler
+* **React Native & Expo** - Mobil uygulama çatısı ve geliştirme araç seti
 
-Uygulama ekran görüntüsü repoda bulunmaktadır.
+* **Context API** - Oyun içi ekonomi ve state yönetimi (Global Budget & Devs)
 
-**👨‍💻 Geliştirici:** Yiğit Özdemir
+* **Animated API** - Akıcı donanım hızlandırmalı UI animasyonları
 
+* **Haptics** - Dokunsal geri bildirimler (Titreşim motoru entegrasyonu)
+
+## 📱 APK İndir
+Uygulamanın Android (Production) sürümünü cihazınıza kurup test etmek için aşağıdaki linke tıklayabilirsiniz:
+
+📥 [ITManagerTycoon_v1.0.apk İndir](https://github.com/yigittozdemirr/software-card-mobile-app/releases/tag/1.0.0)
+
+## [!TIP]
+📺 [Uygulama Demo Videosunu İzle](https://youtu.be/6MNrQVI373c?si=iohSJlXQgv6zAJJ8)
+
+Uygulamanın oynanış dinamiklerinin tanıtıldığı 1 dakikalık kısa tanıtım videosu.
+
+**Geliştiren:** [Yiğit Özdemir](https://github.com/yigittozdemirr)
