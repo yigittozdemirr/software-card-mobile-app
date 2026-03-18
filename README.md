@@ -15,13 +15,13 @@ Projeyi yerel makinenizde çalıştırmak için şu adımları izleyin:
 
 ## 1. Bu depoyu klonlayın:
    ```bash
-   git clone [https://github.com/yigittozdemirr/repo-adin.git](https://github.com/yigittozdemirr/repo-adin.git)
+   git clone https://github.com/yigittozdemirr/software-card-mobile-app.git
   ```
 
 ## 2. Proje dizinine gidin:
 
 ```bash
-cd repo-adin
+cd software-card-mobile-app
 ```
 
 ## 3. Bağımlılıkları yükleyin:
@@ -51,8 +51,8 @@ Uygulamanın Android (Production) sürümünü cihazınıza kurup test etmek iç
 📥 [ITManagerTycoon_v1.0.apk İndir](https://github.com/yigittozdemirr/software-card-mobile-app/releases/tag/1.0.0)
 
 ## Demo Videoyu İzle
+Uygulamanın oynanış dinamiklerinin tanıtıldığı 1 dakikalık kısa tanıtım videosu.
 📺 [Uygulama Demo Videosunu İzle](https://youtu.be/6MNrQVI373c?si=iohSJlXQgv6zAJJ8)
 
-Uygulamanın oynanış dinamiklerinin tanıtıldığı 1 dakikalık kısa tanıtım videosu.
 
 **Geliştiren:** [Yiğit Özdemir](https://github.com/yigittozdemirr)
