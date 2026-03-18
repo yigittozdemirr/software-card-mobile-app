@@ -50,7 +50,7 @@ Uygulamanın Android (Production) sürümünü cihazınıza kurup test etmek iç
 
 📥 [ITManagerTycoon_v1.0.apk İndir](https://github.com/yigittozdemirr/software-card-mobile-app/releases/tag/1.0.0)
 
-## [!TIP]
+## Demo Videoyu İzle
 📺 [Uygulama Demo Videosunu İzle](https://youtu.be/6MNrQVI373c?si=iohSJlXQgv6zAJJ8)
 
 Uygulamanın oynanış dinamiklerinin tanıtıldığı 1 dakikalık kısa tanıtım videosu.
