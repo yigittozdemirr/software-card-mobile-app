@@ -55,5 +55,5 @@ Uygulamanın oynanış dinamiklerinin tanıtıldığı 1 dakikalık kısa tanıt
 
 📺 [Uygulama Demo Videosunu İzle](https://youtu.be/6MNrQVI373c?si=iohSJlXQgv6zAJJ8)
 
-
+##
 **Geliştiren:** [Yiğit Özdemir](https://github.com/yigittozdemirr)
