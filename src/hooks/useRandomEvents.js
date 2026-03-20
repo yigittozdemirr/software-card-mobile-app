@@ -131,6 +131,10 @@ export default function useRandomEvents() {
           dispatch({ type: 'ADJUST_BUDGET', payload: { miktar: -(olay.miktar || 50) } });
           break;
 
+        case 'bug_popup':
+          dispatch({ type: 'SPAWN_BUGS' });
+          break;
+
         default:
           break;
       }

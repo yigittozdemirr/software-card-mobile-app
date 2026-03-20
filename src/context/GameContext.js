@@ -17,6 +17,7 @@ import {
   GELIR_SEVIYE_CARPANLARI,
   GUC_SEVIYE_CARPANLARI,
   MAX_SEVIYE,
+  YUKSELTMELER,
   getEgitimMaliyeti,
   getGelirHizi,
 } from '../constants';
@@ -48,7 +49,11 @@ export const baslangicState = {
   aktifOlay: null,
   gelirCarpani: 1,
   gelirDurduruldu: false,
+  bugsCount: 0,
   xpCarpani: 1,
+
+  // Yükseltmeler
+  upgrades: [],
 
   // Bütçe geçmişi (grafik için)
   budgetHistory: [BASLANGIC_BUTCE],
@@ -101,16 +106,56 @@ function gameReducer(state, action) {
       };
     }
 
-    // Pasif gelir: gelirCarpani ve gelirDurduruldu durumlarını hesaba katar
+    // Pasif gelir: geçici gelirCarpani ve Kalıcı Upgrade çarpanlarını harmanlar
     case 'ADD_INCOME': {
-      if (state.gelirDurduruldu) return state;
-      const dev = state.developers.find((d) => d.id === action.payload.devId);
-      if (!dev) return state;
-      const gelir = Math.round(getGelirHizi(dev) * state.gelirCarpani);
+      if (state.gelirDurduruldu || state.bugsCount > 0) return state;
+      
+      const devIndex = state.developers.findIndex((d) => d.id === action.payload.devId);
+      if (devIndex === -1) return state;
+      const dev = state.developers[devIndex];
+
+      let globalCarpan = 1;
+      let ozelCarpan = 1;
+
+      state.upgrades.forEach((upgradeId) => {
+        const upg = YUKSELTMELER.find((u) => u.id === upgradeId);
+        if (upg) {
+          if (upg.target === 'global') {
+            globalCarpan *= upg.carpan;
+          } else if (upg.target === 'devIndex' && upg.index === devIndex) {
+            ozelCarpan *= upg.carpan;
+          }
+        }
+      });
+
+      const finalCarpan = globalCarpan * ozelCarpan * state.gelirCarpani;
+      const gelir = Math.round(getGelirHizi(dev) * finalCarpan);
+      
       return {
         ...state,
         budget: state.budget + gelir,
         toplamKazanilan: state.toplamKazanilan + gelir,
+      };
+    }
+
+    // ── Clicker Mechanic (+1 Para) ──────────────────────────────────────────
+    case 'INCREMENT_BUDGET_CLICK': {
+      return {
+        ...state,
+        budget: state.budget + 1,
+        toplamKazanilan: state.toplamKazanilan + 1,
+      };
+    }
+
+    case 'BUY_UPGRADE': {
+      const upgrade = action.payload.upgrade;
+      if (state.budget < upgrade.baslangicMaliyeti || state.upgrades.includes(upgrade.id)) return state;
+      
+      return {
+        ...state,
+        budget: state.budget - upgrade.baslangicMaliyeti,
+        toplamHarcanan: state.toplamHarcanan + upgrade.baslangicMaliyeti,
+        upgrades: [...state.upgrades, upgrade.id],
       };
     }
 
@@ -183,18 +228,37 @@ function gameReducer(state, action) {
 
     case 'TICK_PROJECTS': {
       const takimGucu = action.payload?.takimGucu ?? 0;
-      const guncellenmis = state.projects.map((p) => {
-        // Sadece ACTIVE projelerin zamanlayıcısı çalışır
-        if (p.status !== 'ACTIVE') return p;
+      let kazanilanOdul = 0;
+      let tamamlananSayisi = 0;
+      const aktifVeyaDevam = [];
+
+      state.projects.forEach((p) => {
+        if (p.status !== 'ACTIVE') {
+          aktifVeyaDevam.push(p);
+          return;
+        }
+
         const yeniSure = Math.max(0, p.kalanSure - 1);
-        // Takım gücü yeterliyse ilerleme çubuğu dolar
-        const progressArtis = takimGucu >= p.gerekliGuc
-          ? (100 / p.sure) // Her tick'te toplam süreye oranla ilerle
-          : 0;
-        const yeniProgress = Math.min(100, (p.progress || 0) + progressArtis);
-        return { ...p, kalanSure: yeniSure, progress: yeniProgress };
+        
+        // Takım gücü ne kadar yüksekse o kadar hızlı biter (örneğin güç * 1.5 % ilerleme)
+        const progressArtis = Math.max(takimGucu * 0.5, 0.1);
+        const yeniProgress = (p.progress || 0) + progressArtis;
+        
+        if (yeniProgress >= 100) {
+          kazanilanOdul += p.odul;
+          tamamlananSayisi += 1;
+        } else {
+           aktifVeyaDevam.push({ ...p, kalanSure: yeniSure, progress: yeniProgress });
+        }
       });
-      return { ...state, projects: guncellenmis };
+
+      return { 
+        ...state, 
+        projects: aktifVeyaDevam,
+        budget: state.budget + kazanilanOdul,
+        toplamKazanilan: state.toplamKazanilan + kazanilanOdul,
+        tamamlananProjeler: state.tamamlananProjeler + tamamlananSayisi,
+      };
     }
 
     case 'COMPLETE_PROJECT': {
@@ -227,6 +291,14 @@ function gameReducer(state, action) {
 
     case 'CLEAR_EVENT': {
       return { ...state, aktifOlay: null };
+    }
+
+    case 'SPAWN_BUGS': {
+      return { ...state, bugsCount: 5 };
+    }
+
+    case 'FIX_BUG': {
+      return { ...state, bugsCount: Math.max(0, state.bugsCount - 1) };
     }
 
     case 'SET_INCOME_MULTIPLIER': {
@@ -301,9 +373,11 @@ function gameReducer(state, action) {
         developers: mergedDevs,
         // Olay efektlerini sıfırla
         aktifOlay: null,
-        gelirCarpani: 1,
+        gelirCarpani: 1, // Olay çarpanları geçici olduğu için sıfırla
         gelirDurduruldu: false,
+        bugsCount: 0,
         xpCarpani: 1,
+        upgrades: saved.upgrades ?? state.upgrades,
       };
     }
 

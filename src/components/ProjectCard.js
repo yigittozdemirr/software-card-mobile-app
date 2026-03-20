@@ -85,12 +85,6 @@ export default function ProjectCard({ proje }) {
     dispatch({ type: 'ACCEPT_PROJECT', payload: { projeId: id } });
   };
 
-  // ── Projeyi tamamla ──
-  const handleTamamla = () => {
-    haptikGeriBildirim('agir');
-    dispatch({ type: 'COMPLETE_PROJECT', payload: { projeId: id } });
-  };
-
   // Süre formatı (dakika:saniye)
   const dakika = Math.floor(kalanSure / 60);
   const saniye = kalanSure % 60;
@@ -189,7 +183,7 @@ export default function ProjectCard({ proje }) {
         </View>
       </View>
 
-      {/* Aksiyon butonu */}
+      {/* Aksiyon alanı */}
       {isPending ? (
         <TouchableOpacity
           style={styles.butonKabulEt}
@@ -199,16 +193,11 @@ export default function ProjectCard({ proje }) {
           <Text style={styles.butonMetin}>PROJEYİ AL 📥</Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity
-          style={[styles.buton, !tamamlanabilir && styles.butonDisabled]}
-          onPress={handleTamamla}
-          disabled={!tamamlanabilir}
-          activeOpacity={0.8}
-        >
+        <View style={[styles.buton, styles.butonDisabled]}>
           <Text style={styles.butonMetin}>
-            {tamamlanabilir ? 'PROJEYİ TAMAMLA ✅' : (gucYeterli ? `İlerleme: %${Math.round(progressYuzdesi)}` : 'YETERSİZ TAKIM GÜCÜ 🔒')}
+            OTOMATİK TAMAMLANIYOR... ⚙️
           </Text>
-        </TouchableOpacity>
+        </View>
       )}
     </Animated.View>
   );

@@ -371,6 +371,105 @@ export const RASTGELE_OLAYLAR = [
     etki: 'gelir_yarim',
     sure: 12,
   },
+  {
+    id: 'yazilim-hatasi',
+    baslik: 'Yazılım Açığı İstikrarı! 🐛',
+    aciklama: 'Kritik buglar tespiti edildi! Üretim tamamen durdu! Hemen düzeltin!',
+    emoji: '👾',
+    tur: 'negatif',
+    etki: 'bug_popup',
+    sure: 0, // Süresi yok, kullanıcı hepsini kapatana kadar kalır
+  },
+];
+
+// ── Yükseltmeler (Kalıcı Çarpanlar) ──────────────────────────────────────────────
+export const YUKSELTMELER = [
+  {
+    id: 'upg-1',
+    ad: 'Stajyer Eğitim Kampı',
+    target: 'devIndex',
+    index: 0,
+    baslangicMaliyeti: 1000,
+    carpan: 1.5,
+    emoji: '📘'
+  },
+  {
+    id: 'upg-2',
+    ad: 'Mekanik Klavye (Slot 1)',
+    target: 'devIndex',
+    index: 0,
+    baslangicMaliyeti: 3000,
+    carpan: 1.8,
+    emoji: '⌨️'
+  },
+  {
+    id: 'upg-3',
+    ad: 'Junior Mentorluk',
+    target: 'devIndex',
+    index: 1,
+    baslangicMaliyeti: 2500,
+    carpan: 1.3,
+    emoji: '👨‍🏫'
+  },
+  {
+    id: 'upg-4',
+    ad: 'Çift Monitör Kurulumu',
+    target: 'devIndex',
+    index: 1,
+    baslangicMaliyeti: 5000,
+    carpan: 1.5,
+    emoji: '🖥️'
+  },
+  {
+    id: 'upg-5',
+    ad: 'Senior Odak Odası',
+    target: 'devIndex',
+    index: 2,
+    baslangicMaliyeti: 10000,
+    carpan: 1.2,
+    emoji: '🎧'
+  },
+  {
+    id: 'upg-6',
+    ad: 'Takım Kaynaşma Etkinliği',
+    target: 'global',
+    baslangicMaliyeti: 5000,
+    carpan: 1.1,
+    emoji: '🍕'
+  },
+  {
+    id: 'upg-7',
+    ad: 'Agile Metodolojisi Geçişi',
+    target: 'global',
+    baslangicMaliyeti: 15000,
+    carpan: 1.2,
+    emoji: '🔄'
+  },
+  {
+    id: 'upg-8',
+    ad: 'Uzman DevOps Eğitimi',
+    target: 'devIndex',
+    index: 2,
+    baslangicMaliyeti: 25000,
+    carpan: 1.5,
+    emoji: '🚀'
+  },
+  {
+    id: 'upg-9',
+    ad: 'Şirket İçi Hackathon',
+    target: 'global',
+    baslangicMaliyeti: 50000,
+    carpan: 1.25,
+    emoji: '💻'
+  },
+  {
+    id: 'upg-10',
+    ad: 'Yapay Zeka Copilot Lisansı',
+    target: 'global',
+    baslangicMaliyeti: 100000,
+    carpan: 2.0,
+    emoji: '🤖'
+  }
 ];
 
 // ── Şirket Seviyeleri (Dinamik Tema için) ──────────────────────────────────────

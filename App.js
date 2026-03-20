@@ -16,7 +16,7 @@ import {
 
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TEMA } from './src/constants';
 import { GameProvider, useGame } from './src/context/GameContext';
@@ -26,6 +26,7 @@ import { oyunYukle } from './src/hooks/useAutoSave';
 import HomeScreen from './src/screens/HomeScreen';
 import AchievementsScreen from './src/screens/AchievementsScreen';
 import BudgetScreen from './src/screens/BudgetScreen';
+import UpgradesScreen from './src/screens/UpgradesScreen';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ GLOBAL ERROR BOUNDARY
@@ -112,11 +113,17 @@ const errorStyles = StyleSheet.create({
 const Tab = createBottomTabNavigator();
 
 function GameNavigator() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: {
+          ...styles.tabBar,
+          paddingBottom: Math.max(insets.bottom, 10),
+          height: 60 + Math.max(insets.bottom, 10),
+        },
         tabBarActiveTintColor: TEMA.renkler.altin,
         tabBarInactiveTintColor: TEMA.renkler.ortaGri,
         tabBarLabelStyle: styles.tabLabel,
@@ -139,6 +146,16 @@ function GameNavigator() {
           tabBarLabel: 'Başarımlar',
           tabBarIcon: ({ focused }) => (
             <Text style={styles.tabIcon}>🏆</Text>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Upgrades"
+        component={UpgradesScreen}
+        options={{
+          tabBarLabel: 'Gelişim',
+          tabBarIcon: ({ focused }) => (
+            <Text style={styles.tabIcon}>🚀</Text>
           ),
         }}
       />
@@ -255,9 +272,8 @@ const styles = StyleSheet.create({
     backgroundColor: TEMA.renkler.kartArkaPlan,
     borderTopColor: 'rgba(255,255,255,0.06)',
     borderTopWidth: 1,
-    paddingTop: 6,
-    paddingBottom: 8,
-    height: 65,
+    paddingTop: 8,
+    // paddingBottom and height are now set dynamically via useSafeAreaInsets
   },
   tabLabel: {
     fontSize: 11,

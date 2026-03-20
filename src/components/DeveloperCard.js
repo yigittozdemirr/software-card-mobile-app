@@ -200,18 +200,13 @@ export default function DeveloperCard({ developer, index }) {
             <Text style={styles.avatarMetin}>🔒</Text>
           </View>
           <View style={styles.kartUstBilgi}>
-            <Text style={styles.kartAdKilitli}>{emoji} {ad}</Text>
-            <Text style={styles.unvanKilitli}>{unvan}</Text>
+            <Text style={styles.kartAdKilitli} numberOfLines={1} ellipsizeMode="tail">{emoji} {ad}</Text>
+            <Text style={styles.unvanKilitli} numberOfLines={1} ellipsizeMode="tail">{unvan}</Text>
           </View>
         </View>
-
         <View style={styles.kilitBilgi}>
-          <Text style={styles.kilitMetin}>
-            🔓 Önceki geliştirici Lv.3'e ulaştığında açılır
-          </Text>
-          <Text style={styles.kilitMaliyet}>
-            İşe Alma: {formatPara(maliyetBase)} • Gelir: +${mevcutGelir}/sn
-          </Text>
+          <Text style={styles.kilitMetin} numberOfLines={2} ellipsizeMode="tail">🔓 Önceki geliştirici Lv.3'e ulaştığında açılır</Text>
+          <Text style={styles.kilitMaliyet} numberOfLines={1} ellipsizeMode="tail">İşe Alma: {formatPara(maliyetBase)} • Gelir: +${mevcutGelir}/sn</Text>
         </View>
       </View>
     );
@@ -237,43 +232,40 @@ export default function DeveloperCard({ developer, index }) {
         },
       ]}
     >
-      {/* ── Üst Bölüm: Avatar + İsim + Durum ── */}
       <View style={styles.kartUst}>
         <View style={[styles.avatar, { backgroundColor: avatarRenk }]}>
           <Text style={styles.avatarMetin}>{emoji || getBasHarfler(ad)}</Text>
         </View>
         <View style={styles.kartUstBilgi}>
-          <Text style={styles.kartAd}>{ad}</Text>
-          <Text style={styles.unvanMetin}>{unvan}</Text>
+          <Text style={styles.kartAd} numberOfLines={1} ellipsizeMode="tail">{ad}</Text>
+          <Text style={styles.unvanMetin} numberOfLines={1} ellipsizeMode="tail">{unvan}</Text>
           <View style={[styles.durumBadge, { backgroundColor: durumBilgi.renk + '18' }]}>
             <Text style={styles.durumEmoji}>{durumBilgi.emoji}</Text>
-            <Text style={[styles.durumMetin, { color: durumBilgi.renk }]}>
+            <Text style={[styles.durumMetin, { color: durumBilgi.renk }]} numberOfLines={1}>
               {durumBilgi.metin}
             </Text>
           </View>
         </View>
-        {/* Gelir badge (sadece çalışırken) */}
         {durum === 'calisiyor' && (
           <View style={styles.gelirBadge}>
-            <Text style={styles.gelirMetin}>+${mevcutGelir}/sn</Text>
+            <Text style={styles.gelirMetin} numberOfLines={1}>+${mevcutGelir}/sn</Text>
           </View>
         )}
       </View>
 
-      {/* ── Bilgi Satırları ── */}
       <View style={styles.bilgiAlani}>
         <View style={styles.bilgiSatiri}>
           <Text style={styles.bilgiEmoji}>💻</Text>
-          <View>
+          <View style={styles.bilgiMetinKutu}>
             <Text style={styles.bilgiEtiket}>UZMANLIK</Text>
-            <Text style={styles.bilgiDeger}>{uzmanlik}</Text>
+            <Text style={styles.bilgiDeger} numberOfLines={1} ellipsizeMode="tail">{uzmanlik}</Text>
           </View>
         </View>
         <View style={styles.bilgiSatiri}>
           <Text style={styles.bilgiEmoji}>{getSeviyeEmojisi(seviye)}</Text>
-          <View>
+          <View style={styles.bilgiMetinKutu}>
             <Text style={styles.bilgiEtiket}>SEVİYE</Text>
-            <Text style={styles.bilgiDeger}>
+            <Text style={styles.bilgiDeger} numberOfLines={1} ellipsizeMode="tail">
               Lv.{seviye} {getSeviyeEtiketi(seviye)} — ${mevcutGelir}/sn
             </Text>
           </View>
@@ -313,7 +305,7 @@ export default function DeveloperCard({ developer, index }) {
             activeOpacity={0.8}
             disabled={!butceYeterli && maliyetBase > 0}
           >
-            <Text style={styles.butonMetin}>
+            <Text style={styles.butonMetin} numberOfLines={1} ellipsizeMode="tail">
               {maliyetBase === 0
                 ? 'İşe Al 🤝 (Bedava!)'
                 : butceYeterli
@@ -377,11 +369,12 @@ export default function DeveloperCard({ developer, index }) {
 const styles = StyleSheet.create({
   kart: {
     width: '100%',
-    maxWidth: 380,
+    maxWidth: 360,
+    alignSelf: 'center',
     backgroundColor: TEMA.renkler.kartArkaPlan,
     borderRadius: 20,
     marginBottom: 16,
-    padding: 18,
+    padding: 16,
     borderWidth: 1.5,
     ...TEMA.golge,
   },
@@ -389,13 +382,15 @@ const styles = StyleSheet.create({
     backgroundColor: TEMA.renkler.kilitArkaPlan,
     borderColor: 'rgba(255,255,255,0.03)',
     opacity: 0.6,
+    minHeight: 140,
   },
 
   // Avatar & üst bölüm
   kartUst: {
     flexDirection: 'row',
+    flexWrap: 'nowrap',
     alignItems: 'center',
-    marginBottom: 14,
+    marginBottom: 10,
   },
   avatar: {
     width: 50,
@@ -419,12 +414,14 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: TEMA.renkler.beyaz,
     marginBottom: 2,
+    lineHeight: 24,
   },
   kartAdKilitli: {
     fontSize: 16,
     fontWeight: '700',
     color: TEMA.renkler.ortaGri,
     marginBottom: 2,
+    lineHeight: 22,
   },
   unvanMetin: {
     fontSize: 11,
@@ -446,6 +443,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
     paddingHorizontal: 8,
     borderRadius: 8,
+    flexShrink: 1,
   },
   durumEmoji: {
     fontSize: 8,
@@ -475,11 +473,15 @@ const styles = StyleSheet.create({
   // Bilgi satırları
   bilgiAlani: {
     marginBottom: 4,
-    gap: 10,
+    gap: 8,
   },
   bilgiSatiri: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  bilgiMetinKutu: {
+    flex: 1,
+    paddingRight: 10,
   },
   bilgiEmoji: {
     fontSize: 18,
@@ -539,18 +541,20 @@ const styles = StyleSheet.create({
   ayirici: {
     height: 1,
     backgroundColor: 'rgba(255,255,255,0.06)',
-    marginVertical: 14,
+    marginVertical: 10,
   },
 
   // Butonlar
   butonAlani: {
     gap: 8,
+    marginHorizontal: 4,
   },
   buton: {
     paddingVertical: 14,
     borderRadius: 14,
     alignItems: 'center',
     justifyContent: 'center',
+    marginHorizontal: 8,
   },
   butonIseAl: {
     backgroundColor: TEMA.renkler.mavi,
@@ -574,7 +578,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   butonMetin: {
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: '700',
     color: TEMA.renkler.beyaz,
     letterSpacing: 0.3,

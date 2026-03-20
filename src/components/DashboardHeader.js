@@ -8,12 +8,12 @@
 
 import React, { useEffect, useRef } from 'react';
 import { View, Text, Animated, StyleSheet, Platform } from 'react-native';
-import { TEMA, getGelirHizi, getSirketSeviyesi, formatPara } from '../constants';
+import { TEMA, getGelirHizi, getSirketSeviyesi, formatPara, YUKSELTMELER } from '../constants';
 import { useGame } from '../context/GameContext';
 
 export default function DashboardHeader() {
   const { state } = useGame();
-  const { budget, developers, gelirCarpani, gelirDurduruldu, tamamlananProjeler, toplamKazanilan } = state;
+  const { budget, developers, gelirCarpani, gelirDurduruldu, bugsCount, tamamlananProjeler, upgrades } = state;
 
   // ── Bütçe bounce animasyonu ──
   const budgetScale = useRef(new Animated.Value(1)).current;
@@ -48,16 +48,23 @@ export default function DashboardHeader() {
     }
   }, [budget, budgetScale]);
 
-  // ── Hesaplamalar ──
   const aktifCalisan = developers.filter((d) => d.durum === 'calisiyor').length;
-  const toplamGelir = gelirDurduruldu
+  const toplamGelir = (gelirDurduruldu || bugsCount > 0)
     ? 0
     : developers
         .filter((d) => d.durum === 'calisiyor')
-        .reduce(
-          (toplam, d) => toplam + Math.round(getGelirHizi(d) * gelirCarpani),
-          0,
-        );
+        .reduce((toplam, d, _, arr) => {
+          const devIndex = developers.indexOf(d);
+          let gCarpan = 1;
+          let oCarpan = 1;
+          (upgrades || []).forEach((uid) => {
+            const u = YUKSELTMELER.find((x) => x.id === uid);
+            if (!u) return;
+            if (u.target === 'global') gCarpan *= u.carpan;
+            else if (u.target === 'devIndex' && u.index === devIndex) oCarpan *= u.carpan;
+          });
+          return toplam + Math.round(getGelirHizi(d) * gCarpan * oCarpan * gelirCarpani);
+        }, 0);
   const acilanDev = developers.filter((d) => !d.kpiLocked).length;
 
   // ── Şirket seviyesi (dinamik tema) ──
