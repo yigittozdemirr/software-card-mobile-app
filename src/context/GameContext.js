@@ -332,6 +332,16 @@ function gameReducer(state, action) {
       return state;
     }
 
+    // ── Oyun Sıfırlama ────────────────────────────────────────────────────
+
+    case 'RESET_GAME': {
+      // Tüm çalışan interval'leri temizle
+      state.developers.forEach((dev) => {
+        if (dev.intervalId) clearInterval(dev.intervalId);
+      });
+      return { ...baslangicState, developers: hazirlaDevListesi() };
+    }
+
     // ── Persistence ─────────────────────────────────────────────────────────
 
     case 'ADD_BUDGET_SNAPSHOT': {

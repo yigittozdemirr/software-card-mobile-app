@@ -21,6 +21,7 @@ function temizleState(state) {
     achievements: state.achievements,
     tamamlananProjeler: state.tamamlananProjeler,
     budgetHistory: state.budgetHistory,
+    upgrades: state.upgrades || [],
     developers: state.developers.map((dev) => ({
       id: dev.id,
       ad: dev.ad,
@@ -50,6 +51,17 @@ export async function oyunYukle() {
     console.warn('Oyun yükleme hatası:', hata);
   }
   return null;
+}
+
+/**
+ * Kayıtlı oyun verisini AsyncStorage'dan siler.
+ */
+export async function oyunSil() {
+  try {
+    await AsyncStorage.removeItem(KAYIT_ANAHTARI);
+  } catch (hata) {
+    console.warn('Oyun silme hatası:', hata);
+  }
 }
 
 /**

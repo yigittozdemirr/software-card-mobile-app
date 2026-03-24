@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🎮 IT MANAGER: STARTUP TYCOON — Phase 3: Multi-Screen Navigation
+// 🎮 IT MANAGER: STARTUP TYCOON — Phase 3: Multi-Screen Navigation + Settings
 // ═══════════════════════════════════════════════════════════════════════════════
 
 import React, { useEffect, useState, useRef, Component } from 'react';
@@ -12,10 +12,12 @@ import {
   ActivityIndicator,
   Platform,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { TEMA } from './src/constants';
@@ -27,6 +29,7 @@ import HomeScreen from './src/screens/HomeScreen';
 import AchievementsScreen from './src/screens/AchievementsScreen';
 import BudgetScreen from './src/screens/BudgetScreen';
 import UpgradesScreen from './src/screens/UpgradesScreen';
+import SettingsScreen from './src/screens/SettingsScreen';
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ GLOBAL ERROR BOUNDARY
@@ -111,8 +114,9 @@ const errorStyles = StyleSheet.create({
 // ═══════════════════════════════════════════════════════════════════════════════
 
 const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
-function GameNavigator() {
+function GameTabs() {
   const insets = useSafeAreaInsets();
 
   return (
@@ -170,6 +174,38 @@ function GameNavigator() {
         }}
       />
     </Tab.Navigator>
+  );
+}
+
+// ── Ana Sekme Ekranı + Floating Ayarlar Butonu ──
+function MainWithSettingsButton({ navigation }) {
+  return (
+    <View style={{ flex: 1 }}>
+      <GameTabs />
+      {/* Floating Ayarlar Butonu — Her zaman ekranda */}
+      <TouchableOpacity
+        style={styles.ayarlarButon}
+        onPress={() => navigation.navigate('Settings')}
+        activeOpacity={0.75}
+      >
+        <Text style={styles.ayarlarEmoji}>⚙️</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+function GameNavigator() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Main" component={MainWithSettingsButton} />
+      <Stack.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          animation: 'slide_from_right',
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -284,6 +320,35 @@ const styles = StyleSheet.create({
   tabIcon: {
     fontSize: 20,
     textAlign: 'center',
+  },
+
+  // Floating Ayarlar Butonu
+  ayarlarButon: {
+    position: 'absolute',
+    top: Platform.OS === 'android' ? 48 : 20,
+    right: 16,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(30, 41, 59, 0.92)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
+    zIndex: 999,
+    elevation: 20,
+    ...Platform.select({
+      ios: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+      },
+      default: {},
+    }),
+  },
+  ayarlarEmoji: {
+    fontSize: 22,
   },
 
   // Loading screen
