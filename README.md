@@ -47,11 +47,11 @@ npx expo start
 ## 📱 APK İndir
 Uygulamanın en güncel Android (Production) sürümünü cihazınıza kurup test etmek için aşağıdaki linke tıklayabilirsiniz:
 
-📥 ITManagerTycoon_v2.0.apk İndir (Link repo yapınıza göre güncellenecektir)
+📥 [ITManagerTycoon_v1.1.apk İndir](https://github.com/yigittozdemirr/software-card-mobile-app/releases/tag/1.1.0)
 
 ## 🎥 Demo Videoyu İzle
-Proje mekaniklerinin, bug ezme mini-oyununun ve ofis yönetim dinamiklerinin gösterildiği kısa tanıtım videosu:
+Proje mekaniklerinin ve ofis yönetim dinamiklerinin gösterildiği kısa tanıtım videosu:
 
-📺 Uygulama Demo Videosunu İzle
+📺 [Uygulama Demo Videosunu İzle](https://youtube.com/shorts/TbaJooagy8I)
 
-**Geliştiren:** Yiğit Özdemir - Samsun Üniversitesi Yazılım Mühendisliği
+**Geliştiren:** [Yiğit Özdemir - Samsun Üniversitesi Yazılım Mühendisliği](https://github.com/yigittozdemirr)
